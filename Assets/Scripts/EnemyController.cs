@@ -12,10 +12,10 @@ public class EnemyController : MonoBehaviour
     public float arcAngle;
     public float turnBackAngle;
     public float idleTimer;
-    private Vector3 walkTarget;
+    protected Vector3 walkTarget;
     public EnemyStates currentState = EnemyStates.Idle;
     public float pointDistanceMultiplier;
-    Material material;
+    private Material material;
 
     public NavMeshAgent agent;
     private void Start()
@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     
-    private void setDestination()
+    protected void setDestination()
     {
         for(int i = 0; i < 10; i++){
             walkTarget = GetPointInArc();
@@ -78,14 +78,14 @@ public class EnemyController : MonoBehaviour
         Gizmos.color = Color.greenYellow;
         Gizmos.DrawSphere(walkTarget, 1f);
     }
-    private Vector3 GetPointInArc()
+    protected Vector3 GetPointInArc()
     {
         float angle = Random.Range(-arcAngle, arcAngle);
         Quaternion rotation = Quaternion.AngleAxis(angle, transform.up);
         Vector3 direction = rotation * transform.forward;
         return transform.position + (direction * pointDistanceMultiplier);
     }
-    private Vector3 GetPointBehind()
+    protected Vector3 GetPointBehind()
     {
         Vector3 directionToCenter = (Vector3.zero - transform.position).normalized;
         float angle = Mathf.Atan2(directionToCenter.x, directionToCenter.z) * Mathf.Rad2Deg;
@@ -103,7 +103,7 @@ public class EnemyController : MonoBehaviour
             Invoke("revertForm", 3f);
         }
     }
-   
+
     private void revertForm()
     {
         material.color = Color.red;

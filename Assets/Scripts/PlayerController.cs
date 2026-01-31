@@ -45,7 +45,11 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            gameManager.GameOver();
+            gameManager.gameOver();
+        }
+        else if (collision.gameObject.CompareTag("King"))
+        {
+            gameManager.gameWon();
         }
     }
 
