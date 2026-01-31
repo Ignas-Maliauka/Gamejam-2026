@@ -70,7 +70,7 @@ Material:
     - _Float: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _wizard_coat: 0
+    - _wizard_coat: 0.44
     m_Colors:
     - _Vector2: {r: 0.48, g: 0.75, b: 0, a: 0}
     - _Vector2_1: {r: 0.2, g: 0.24, b: 0, a: 0}
