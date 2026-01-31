@@ -7,18 +7,14 @@ public class PlayerController : MonoBehaviour
     float horizontalMov;
     private Rigidbody RB;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         RB = GetComponent < Rigidbody>();
     }
-
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         verticalMov = Input.GetAxisRaw("Vertical");
         horizontalMov = Input.GetAxisRaw("Horizontal");
-        Debug.Log(verticalMov);
         RB.AddForce(horizontalMov * MoveSpeed, 0, verticalMov * MoveSpeed);
 
         RB.transform.rotation = Quaternion.LookRotation(RB.linearVelocity, transform.up);
