@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !chargingLocked)
         {
             charging = true;
+            scanRadius.GetComponent<MeshRenderer>().enabled = true;
         }
             if (Input.GetKey(KeyCode.Space) && charging)
         {
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (scanStreght > 1)
         {
+            scanRadius.GetComponent<MeshRenderer>().enabled = false;
+
             scanMaterial.color = Color.pink;
             scanTimer = 0;
             charging = false;
