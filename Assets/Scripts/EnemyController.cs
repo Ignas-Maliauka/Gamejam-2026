@@ -142,6 +142,7 @@ public class EnemyController : MonoBehaviour
             agent.speed *= 2;
             Invoke("revertForm", 3f);
             calculatePathAwayFromPlayer(player);
+            gameObject.GetComponent<Collider>().enabled = false;
         }
     }
    
@@ -149,6 +150,8 @@ public class EnemyController : MonoBehaviour
     {
         material.color = Color.red;
         agent.speed /= 2;
+        gameObject.GetComponent<Collider>().enabled = true;
+
     }
 }
 
