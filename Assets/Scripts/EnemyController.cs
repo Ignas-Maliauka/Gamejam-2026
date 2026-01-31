@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
         Idle,
         Walk
     }
+    protected GameObject player;
     public float arcAngle;
     public float turnBackAngle;
     public float idleTimer;
@@ -20,6 +21,7 @@ public class EnemyController : MonoBehaviour
     public NavMeshAgent agent;
     private void Start()
     {
+        player = GameObject.Find("Player");
         transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
         material = GetComponent<Renderer>().material;
     }
@@ -85,6 +87,15 @@ public class EnemyController : MonoBehaviour
         Vector3 direction = rotation * transform.forward;
         return transform.position + (direction * pointDistanceMultiplier);
     }
+    protected Vector3 GetPointFromPlayer()
+    {
+        Vector3 directionFromPlayer = (transform.position - player.transform.position).normalized;
+        float angle = Mathf.Atan2(directionFromPlayer.x, directionFromPlayer.z) * Mathf.Rad2Deg;
+
+        Quaternion rotation = Quaternion.AngleAxis(angle, transform.up);
+        Vector3 direction = rotation * transform.forward;
+        return transform.position + (direction * pointDistanceMultiplier);
+    }
     protected Vector3 GetPointBehind()
     {
         Vector3 directionToCenter = (Vector3.zero - transform.position).normalized;
@@ -95,18 +106,49 @@ public class EnemyController : MonoBehaviour
         Vector3 direction = rotation * Vector3.forward;
         return transform.position + (direction * pointDistanceMultiplier);
     }
+    protected void calculatePathAwayFromPlayer()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            walkTarget = GetPointFromPlayer();
+            walkTarget.y = 0;
+            NavMeshPath path = new NavMeshPath();
+            if (agent.CalculatePath(walkTarget, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                agent.SetDestination(walkTarget);
+
+                return;
+            }
+
+        }
+        for (int i = 0; i < 100; i++)
+        {
+            walkTarget = GetPointBehind();
+            walkTarget.y = 0;
+            NavMeshPath path = new NavMeshPath();
+            if (agent.CalculatePath(walkTarget, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                agent.SetDestination(walkTarget);
+
+                return;
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Scan"))
         {
-            material.color = Color.gray;
+            material.color = Color.black;
+            agent.speed *= 2;
             Invoke("revertForm", 3f);
+            calculatePathAwayFromPlayer();
         }
     }
-
+   
     private void revertForm()
     {
         material.color = Color.red;
+        agent.speed /= 2;
     }
 }
 

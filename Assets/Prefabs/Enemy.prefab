@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   arcAngle: 30
   turnBackAngle: 45
-  idleTimer: 1
+  idleTimer: 0.2
   currentState: 0
   pointDistanceMultiplier: 10
   agent: {fileID: 6374648022189187693}

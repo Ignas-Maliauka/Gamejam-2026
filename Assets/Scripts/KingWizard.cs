@@ -33,12 +33,15 @@ public class KingWizard : EnemyController
     {
         if (other.gameObject.CompareTag("Scan"))
         {
+            agent.speed *= 2;
             kingMaterial.color = Color.yellow;
             Invoke("revertForm", 3f);
+            calculatePathAwayFromPlayer();
         }
     }
     private void revertForm()
     {
+        agent.speed /= 2;
         kingMaterial.color = Color.red;
     }
 }
