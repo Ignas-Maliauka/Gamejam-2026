@@ -9,17 +9,21 @@ public class EnemyController : MonoBehaviour
         Idle,
         Walk
     }
+    private GameObject player;
     public float arcAngle;
     public float turnBackAngle;
     public float idleTimer;
-    private Vector3 walkTarget;
+    protected Vector3 walkTarget;
     public EnemyStates currentState = EnemyStates.Idle;
     public float pointDistanceMultiplier;
+    private Material material;
 
     public NavMeshAgent agent;
     private void Start()
     {
+        player = GameObject.Find("Player");
         transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+        material = GetComponent<Renderer>().material;
     }
     void Update()
     {
@@ -42,7 +46,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     
-    private void setDestination()
+    protected void setDestination()
     {
         for(int i = 0; i < 10; i++){
             walkTarget = GetPointInArc();
@@ -76,14 +80,23 @@ public class EnemyController : MonoBehaviour
         Gizmos.color = Color.greenYellow;
         Gizmos.DrawSphere(walkTarget, 1f);
     }
-    private Vector3 GetPointInArc()
+    protected Vector3 GetPointInArc()
     {
         float angle = Random.Range(-arcAngle, arcAngle);
         Quaternion rotation = Quaternion.AngleAxis(angle, transform.up);
         Vector3 direction = rotation * transform.forward;
         return transform.position + (direction * pointDistanceMultiplier);
     }
-    private Vector3 GetPointBehind()
+    protected Vector3 GetPointFromPlayer(GameObject player)
+    {
+        Vector3 directionFromPlayer = (transform.position - player.transform.position).normalized;
+        float angle = Mathf.Atan2(directionFromPlayer.x, directionFromPlayer.z) * Mathf.Rad2Deg;
+
+        Quaternion rotation = Quaternion.AngleAxis(angle, transform.up);
+        Vector3 direction = rotation * transform.forward;
+        return transform.position + (direction * pointDistanceMultiplier);
+    }
+    protected Vector3 GetPointBehind()
     {
         Vector3 directionToCenter = (Vector3.zero - transform.position).normalized;
         float angle = Mathf.Atan2(directionToCenter.x, directionToCenter.z) * Mathf.Rad2Deg;
@@ -92,6 +105,50 @@ public class EnemyController : MonoBehaviour
 
         Vector3 direction = rotation * Vector3.forward;
         return transform.position + (direction * pointDistanceMultiplier);
+    }
+    protected void calculatePathAwayFromPlayer(GameObject player)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            walkTarget = GetPointFromPlayer(player);
+            walkTarget.y = 0;
+            NavMeshPath path = new NavMeshPath();
+            if (agent.CalculatePath(walkTarget, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                agent.SetDestination(walkTarget);
+
+                return;
+            }
+
+        }
+        for (int i = 0; i < 100; i++)
+        {
+            walkTarget = GetPointBehind();
+            walkTarget.y = 0;
+            NavMeshPath path = new NavMeshPath();
+            if (agent.CalculatePath(walkTarget, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                agent.SetDestination(walkTarget);
+
+                return;
+            }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Scan"))
+        {
+            material.color = Color.black;
+            agent.speed *= 2;
+            Invoke("revertForm", 3f);
+            calculatePathAwayFromPlayer(player);
+        }
+    }
+   
+    private void revertForm()
+    {
+        material.color = Color.red;
+        agent.speed /= 2;
     }
 }
 
