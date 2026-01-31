@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         arcCooldownTime -= Time.deltaTime;
         scanArc.transform.position = transform.position - Vector3.up * 0.4f;
-        if (Input.GetKeyDown(KeyCode.E) && arcCooldownTime <= 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && arcCooldownTime <= 0)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
