@@ -15,11 +15,13 @@ public class EnemyController : MonoBehaviour
     private Vector3 walkTarget;
     public EnemyStates currentState = EnemyStates.Idle;
     public float pointDistanceMultiplier;
+    Material material;
 
     public NavMeshAgent agent;
     private void Start()
     {
         transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+        material = GetComponent<Renderer>().material;
     }
     void Update()
     {
@@ -92,6 +94,19 @@ public class EnemyController : MonoBehaviour
 
         Vector3 direction = rotation * Vector3.forward;
         return transform.position + (direction * pointDistanceMultiplier);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Scan"))
+        {
+            material.color = Color.gray;
+            Invoke("revertForm", 3f);
+        }
+    }
+   
+    private void revertForm()
+    {
+        material.color = Color.red;
     }
 }
 
