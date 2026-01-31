@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
         Idle,
         Walk
     }
-    protected GameObject player;
+    private GameObject player;
     public float arcAngle;
     public float turnBackAngle;
     public float idleTimer;
@@ -87,7 +87,7 @@ public class EnemyController : MonoBehaviour
         Vector3 direction = rotation * transform.forward;
         return transform.position + (direction * pointDistanceMultiplier);
     }
-    protected Vector3 GetPointFromPlayer()
+    protected Vector3 GetPointFromPlayer(GameObject player)
     {
         Vector3 directionFromPlayer = (transform.position - player.transform.position).normalized;
         float angle = Mathf.Atan2(directionFromPlayer.x, directionFromPlayer.z) * Mathf.Rad2Deg;
@@ -106,11 +106,11 @@ public class EnemyController : MonoBehaviour
         Vector3 direction = rotation * Vector3.forward;
         return transform.position + (direction * pointDistanceMultiplier);
     }
-    protected void calculatePathAwayFromPlayer()
+    protected void calculatePathAwayFromPlayer(GameObject player)
     {
         for (int i = 0; i < 10; i++)
         {
-            walkTarget = GetPointFromPlayer();
+            walkTarget = GetPointFromPlayer(player);
             walkTarget.y = 0;
             NavMeshPath path = new NavMeshPath();
             if (agent.CalculatePath(walkTarget, path) && path.status == NavMeshPathStatus.PathComplete)
@@ -141,7 +141,7 @@ public class EnemyController : MonoBehaviour
             material.color = Color.black;
             agent.speed *= 2;
             Invoke("revertForm", 3f);
-            calculatePathAwayFromPlayer();
+            calculatePathAwayFromPlayer(player);
         }
     }
    

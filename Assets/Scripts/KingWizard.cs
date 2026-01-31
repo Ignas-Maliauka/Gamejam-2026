@@ -3,14 +3,18 @@ using UnityEngine;
 public class KingWizard : EnemyController
 {
     private Material kingMaterial;
+    bool firstScan = true;
+    private GameObject playerK;
 
     private void Start()
     {
-        transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
         kingMaterial = GetComponent<Renderer>().material;
+        playerK = GameObject.Find("Player");
+
     }
     void Update()
     {
+        if (firstScan) { return; }
         if (currentState == EnemyStates.Idle)
         {
             idleTimer -= Time.deltaTime;
@@ -33,10 +37,17 @@ public class KingWizard : EnemyController
     {
         if (other.gameObject.CompareTag("Scan"))
         {
+            if(firstScan)
+            {
+                firstScan = false;
+                GameManager.successfulScan = true;
+                agent.SetDestination(Vector3.zero);
+                currentState = EnemyStates.Walk;
+            }
             agent.speed *= 2;
             kingMaterial.color = Color.yellow;
             Invoke("revertForm", 3f);
-            calculatePathAwayFromPlayer();
+            calculatePathAwayFromPlayer(playerK);
         }
     }
     private void revertForm()

@@ -1,11 +1,17 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool controlLock = true;
+    public static bool successfulScan = false;
+    public GameObject cameraGameobject;
+    public GameObject playerGameobject;
     public GameObject gameOverPanel;
     public GameObject winPanel;
+    public GameObject enemies;
     public float timer = 0;
     public void gameOver()
     {
@@ -20,8 +26,30 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
     }
+    private void Start()
+    {
+        controlLock = true;
+        successfulScan = false;
+    }
+    private void startCutscene()
+    {
+        cameraGameobject.GetComponent<PlayableDirector>().Play();
+        Invoke("startGame", 6f);
+    }
+    private void startGame()
+    {
+        timer = 0;
+        controlLock = false;
+ 
+    }
     private void Update()
     {
+        if (successfulScan)
+        {
+            startCutscene();
+            successfulScan = false;
+            enemies.SetActive(true);
+        }
         timer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.R))
         {

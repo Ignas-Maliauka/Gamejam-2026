@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float scanTimer = 0;
     bool charging = false;
     bool chargingLocked = false;
+
+
     void Start()
     {
         scanMaterial = scanRadius.GetComponent<Renderer>().material;
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if(GameManager.controlLock) return;
         verticalMov = Input.GetAxisRaw("Vertical");
         horizontalMov = Input.GetAxisRaw("Horizontal");
         RB.AddForce(horizontalMov * MoveSpeed, 0, verticalMov * MoveSpeed);
