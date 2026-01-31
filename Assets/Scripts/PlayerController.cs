@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        scanArc = transform.GetChild(0).gameObject;
+        scanArc = transform.parent.GetChild(0).gameObject;
         scanMaterial = scanRadius.GetComponent<Renderer>().material;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         RB = GetComponent < Rigidbody>();
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         arcCooldownTime -= Time.deltaTime;
+        scanArc.transform.position = transform.position - Vector3.up * 0.4f;
         if (Input.GetKeyDown(KeyCode.E) && arcCooldownTime <= 0)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
