@@ -72,7 +72,7 @@ Material:
     - _is_player: 0
     - _wizard_coat: 1
     m_Colors:
-    - _Vector2: {r: 0.48, g: 0.75, b: 0, a: 0}
+    - _Vector2: {r: 0.48, g: 0.56, b: 0, a: 0}
     - _Vector2_1: {r: 0.2, g: 0.23, b: 0, a: 0}
     - _enemy_color: {r: 0.13553652, g: 0.48427665, b: 0.39709163, a: 1}
     - _player_color: {r: 0.19318847, g: 0.55345905, b: 0.4628026, a: 1}
