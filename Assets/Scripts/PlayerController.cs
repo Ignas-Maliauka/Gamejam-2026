@@ -15,15 +15,27 @@ public class PlayerController : MonoBehaviour
     bool charging = false;
     bool chargingLocked = false;
 
+    public GameObject scanArc;
+    public float arcCooldownTime = 1f;
 
     void Start()
     {
+        scanArc = transform.GetChild(0).gameObject;
         scanMaterial = scanRadius.GetComponent<Renderer>().material;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         RB = GetComponent < Rigidbody>();
     }
     private void Update()
     {
+        arcCooldownTime -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.E) && arcCooldownTime <= 0)
+        {
+            arcCooldownTime = 1f;
+            scanArc.SetActive(true);
+            Invoke("disableScanArc", 0.5f);
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Space) && !chargingLocked)
         {
             charging = true;
@@ -52,6 +64,11 @@ public class PlayerController : MonoBehaviour
             chargingLocked = true;
             scanRadius.GetComponent<Collider>().enabled = true;
         }
+    }
+    private void disableScanArc()
+    {
+        scanArc.SetActive(false);
+
     }
     private void resetScanColor()
     {
