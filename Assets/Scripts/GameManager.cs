@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static bool controlLock = true;
     public static bool successfulScan = false;
+
+    public GameObject tutorialPanel;
+
     public GameObject cameraGameobject;
     public GameObject playerGameobject;
     public GameObject gameOverPanel;
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     }
     private void startCutscene()
     {
+        tutorialPanel.SetActive(false);
         cameraGameobject.GetComponent<PlayableDirector>().Play();
         Invoke("startGame", 6f);
     }

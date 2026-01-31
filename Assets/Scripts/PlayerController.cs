@@ -27,14 +27,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !chargingLocked)
         {
             charging = true;
+            scanRadius.GetComponent<MeshRenderer>().enabled = true;
         }
             if (Input.GetKey(KeyCode.Space) && charging)
         {
-            scanStreght += Time.deltaTime * 3;
+            scanStreght += Time.deltaTime * 7;
             scanTimer += Time.deltaTime;
             Vector3 scanVector = new Vector3(scanStreght, 1, scanStreght);
             scanRadius.gameObject.transform.localScale = scanVector;
-            if(scanTimer >= 3)
+            if(scanTimer >= 2)
             {
                 charging = false;
                 scanTimer = 0;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (scanStreght > 1)
         {
+
             scanMaterial.color = Color.pink;
             scanTimer = 0;
             charging = false;
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour
     }
     private void resetScanColor()
     {
+        scanRadius.GetComponent<MeshRenderer>().enabled = false;
+
         scanMaterial.color = Color.gray;
         scanRadius.gameObject.transform.localScale = Vector3.one;
         chargingLocked = false;
