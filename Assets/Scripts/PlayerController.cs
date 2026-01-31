@@ -31,11 +31,11 @@ public class PlayerController : MonoBehaviour
         }
             if (Input.GetKey(KeyCode.Space) && charging)
         {
-            scanStreght += Time.deltaTime * 5;
+            scanStreght += Time.deltaTime * 7;
             scanTimer += Time.deltaTime;
             Vector3 scanVector = new Vector3(scanStreght, 1, scanStreght);
             scanRadius.gameObject.transform.localScale = scanVector;
-            if(scanTimer >= 3)
+            if(scanTimer >= 2)
             {
                 charging = false;
                 scanTimer = 0;
