@@ -5293,8 +5293,24 @@ PrefabInstance:
       value: King wizard
       objectReference: {fileID: 0}
     - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
+      propertyPath: m_Center.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
+      propertyPath: m_Center.z
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
