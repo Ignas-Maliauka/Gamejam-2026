@@ -14,25 +14,37 @@ public class PlayerController : MonoBehaviour
     private float scanTimer = 0;
     bool charging = false;
     bool chargingLocked = false;
+    private Camera cam;
+
 
     public GameObject scanArc;
     public float arcCooldownTime = 1f;
 
     void Start()
     {
+        cam = Camera.main;
         scanArc = transform.GetChild(0).gameObject;
         scanMaterial = scanRadius.GetComponent<Renderer>().material;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         RB = GetComponent < Rigidbody>();
     }
+
     private void Update()
     {
         arcCooldownTime -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.E) && arcCooldownTime <= 0)
         {
-            arcCooldownTime = 1f;
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 direction = hit.point - transform.position;
+                float angle = Mathf.Atan2(-direction.x, direction.z) * Mathf.Rad2Deg;
+                scanArc.transform.rotation = Quaternion.Euler(-90, -angle, 0);
+            }
+
             scanArc.SetActive(true);
             Invoke("disableScanArc", 0.5f);
+            arcCooldownTime = 1f;
         }
 
 
