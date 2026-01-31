@@ -5240,10 +5240,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1459780899405989982, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4439593492145160064, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5284,33 +5280,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6374648022189187693, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7411107191158588341, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
       propertyPath: m_Name
       value: King wizard
-      objectReference: {fileID: 0}
-    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
-      propertyPath: m_Center.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8563435203188400906, guid: 1eed97a2c93946a4ba87f7452d5b7e49, type: 3}
-      propertyPath: m_Center.z
-      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
