@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
@@ -38,13 +39,14 @@ public class GameManager : MonoBehaviour
     {
         tutorialPanel.SetActive(false);
         cameraGameobject.GetComponent<PlayableDirector>().Play();
-        Invoke("startGame", 6f);
+        Invoke("startGame", 5f);
     }
     private void startGame()
     {
         timer = 0;
         controlLock = false;
- 
+        cameraGameobject.GetComponent<PositionConstraint>().enabled = true;
+
     }
     private void Update()
     {

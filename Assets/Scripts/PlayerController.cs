@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     bool charging = false;
     bool chargingLocked = false;
     private Camera cam;
+    public AudioSource scanSound;
 
     public Animator animator;
     public GameObject scanArc;
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
                 float angle = Mathf.Atan2(-direction.x, direction.z) * Mathf.Rad2Deg;
                 scanArc.transform.rotation = Quaternion.Euler(-90, -angle, 0);
             }
-
+            scanSound.Play();
             scanArc.SetActive(true);
             Invoke("disableScanArc", 0.5f);
             arcCooldownTime = 1f;
