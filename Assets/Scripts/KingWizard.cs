@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class KingWizard : EnemyController
 {
-    private Material kingMaterial;
     bool firstScan = true;
     private GameObject playerK;
 
     private void Start()
     {
-        kingMaterial = GetComponent<Renderer>().material;
         playerK = GameObject.Find("Player");
 
     }
@@ -45,7 +43,6 @@ public class KingWizard : EnemyController
                 currentState = EnemyStates.Walk;
             }
             agent.speed *= 2;
-            kingMaterial.color = Color.yellow;
             Invoke("revertForm", 3f);
             calculatePathAwayFromPlayer(playerK);
         }
@@ -53,7 +50,6 @@ public class KingWizard : EnemyController
     private void revertForm()
     {
         agent.speed /= 2;
-        kingMaterial.color = Color.red;
     }
 }
 

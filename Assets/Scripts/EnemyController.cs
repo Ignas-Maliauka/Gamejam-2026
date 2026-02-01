@@ -16,14 +16,16 @@ public class EnemyController : MonoBehaviour
     protected Vector3 walkTarget;
     public EnemyStates currentState = EnemyStates.Idle;
     public float pointDistanceMultiplier;
-    private Material material;
+    public SkinnedMeshRenderer[] rendererr;
+    private MaterialPropertyBlock mpb;
 
     public NavMeshAgent agent;
     private void Start()
     {
+        mpb = new MaterialPropertyBlock();
+
         player = GameObject.Find("Player");
         transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-        material = GetComponent<Renderer>().material;
     }
     void Update()
     {
@@ -138,7 +140,13 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Scan"))
         {
-            material.color = Color.black;
+            for(int i = 0; i < rendererr.Length; i++)
+            {
+                rendererr[i].GetPropertyBlock(mpb);
+                mpb.SetVector("_Vector2",new Vector2(0.5f, 0));
+                rendererr[i].SetPropertyBlock(mpb);
+            }
+
             agent.speed *= 2;
             Invoke("revertForm", 3f);
             calculatePathAwayFromPlayer(player);
@@ -148,7 +156,6 @@ public class EnemyController : MonoBehaviour
    
     private void revertForm()
     {
-        material.color = Color.red;
         agent.speed /= 2;
         gameObject.GetComponent<Collider>().enabled = true;
 
