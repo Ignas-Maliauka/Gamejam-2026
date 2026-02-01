@@ -83,6 +83,12 @@ MonoBehaviour:
   idleTimer: 1
   currentState: 0
   pointDistanceMultiplier: 10
+  rendererr:
+  - {fileID: 8509726027247867521}
+  - {fileID: 2235747201577866972}
+  - {fileID: 885308367305661794}
+  - {fileID: 6447153798505946401}
+  - {fileID: 5020993253418812364}
   agent: {fileID: 6374648022189187693}
 --- !u!195 &6374648022189187693
 NavMeshAgent:
@@ -279,6 +285,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3759314165651863031, guid: d53daad10e4361e46be575c7f51bdaea, type: 3}
   m_PrefabInstance: {fileID: 3725662592712750217}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &885308367305661794 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4612520378060379669, guid: d53daad10e4361e46be575c7f51bdaea, type: 3}
+  m_PrefabInstance: {fileID: 3725662592712750217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2235747201577866972 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6002508473797582251, guid: d53daad10e4361e46be575c7f51bdaea, type: 3}
+  m_PrefabInstance: {fileID: 3725662592712750217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3764603697559491426 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d53daad10e4361e46be575c7f51bdaea, type: 3}
@@ -311,6 +327,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!137 &5020993253418812364 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8510132731797305157, guid: d53daad10e4361e46be575c7f51bdaea, type: 3}
+  m_PrefabInstance: {fileID: 3725662592712750217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6447153798505946401 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1527614881612994136, guid: d53daad10e4361e46be575c7f51bdaea, type: 3}
+  m_PrefabInstance: {fileID: 3725662592712750217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8509726027247867521 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4202798675411607032, guid: d53daad10e4361e46be575c7f51bdaea, type: 3}
+  m_PrefabInstance: {fileID: 3725662592712750217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7250552815042508410
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +19,9 @@ public class EnemyController : MonoBehaviour
     public float pointDistanceMultiplier;
     public SkinnedMeshRenderer[] rendererr;
     private MaterialPropertyBlock mpb;
+    float t = 0;
+    bool animate = false;
+    bool revert = false;
 
     public NavMeshAgent agent;
     private void Start()
@@ -29,7 +33,50 @@ public class EnemyController : MonoBehaviour
     }
     void Update()
     {
-        if(currentState == EnemyStates.Idle)
+        if (animate)
+        {
+
+            t += Time.deltaTime;
+            t = Mathf.Clamp01(t);
+
+            Vector2 value = Vector2.Lerp(
+                new Vector2(0.5f, 0.5f),
+                new Vector2(0.5f, 0f),
+                t
+            );
+
+            for (int i = 0; i < rendererr.Length; i++)
+            {
+                rendererr[i].GetPropertyBlock(mpb);
+                mpb.SetVector("_Vector2", value);
+                rendererr[i].SetPropertyBlock(mpb);
+            }
+
+            if (t >= 1f)
+                animate = false;
+        }
+        if (revert)
+        {
+            t += Time.deltaTime;
+            t = Mathf.Clamp01(t);
+
+            Vector2 value = Vector2.Lerp(
+                new Vector2(0.5f, 0f),
+                new Vector2(0.5f, 0.5f),
+                t
+            );
+
+            for (int i = 0; i < rendererr.Length; i++)
+            {
+                rendererr[i].GetPropertyBlock(mpb);
+                mpb.SetVector("_Vector2", value);
+                rendererr[i].SetPropertyBlock(mpb);
+            }
+
+            if (t >= 1f)
+                revert = false;
+        }
+        if (currentState == EnemyStates.Idle)
         {
             idleTimer -= Time.deltaTime;
             if(idleTimer <= 0)
@@ -140,13 +187,10 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Scan"))
         {
-            for(int i = 0; i < rendererr.Length; i++)
-            {
-                rendererr[i].GetPropertyBlock(mpb);
-                mpb.SetVector("_Vector2",new Vector2(0.5f, 0));
-                rendererr[i].SetPropertyBlock(mpb);
-            }
+            t = 0;
 
+            revert = false;
+            animate = true;
             agent.speed *= 2;
             Invoke("revertForm", 3f);
             calculatePathAwayFromPlayer(player);
@@ -156,6 +200,9 @@ public class EnemyController : MonoBehaviour
    
     private void revertForm()
     {
+        revert = true;
+        animate = false;
+        t = 0;
         agent.speed /= 2;
         gameObject.GetComponent<Collider>().enabled = true;
 
