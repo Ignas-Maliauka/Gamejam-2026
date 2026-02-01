@@ -163,6 +163,7 @@ MonoBehaviour:
   scanRadiusAppearanceTime: 1
   scanRadius: {fileID: 2039766869206026681}
   scanMaterial: {fileID: 0}
+  animator: {fileID: 1295636179409188536}
   scanArc: {fileID: 0}
   arcCooldownTime: 1
 --- !u!1 &1944547362275431777

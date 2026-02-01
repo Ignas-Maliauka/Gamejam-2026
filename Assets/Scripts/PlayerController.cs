@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     bool chargingLocked = false;
     private Camera cam;
 
-
+    public Animator animator;
     public GameObject scanArc;
     public float arcCooldownTime = 1f;
 
@@ -48,7 +48,14 @@ public class PlayerController : MonoBehaviour
             arcCooldownTime = 1f;
         }
 
-
+        if(RB.linearVelocity.magnitude >= 0.1f)
+        {
+            animator.SetBool("walk", true);
+        }
+        else
+        {
+            animator.SetBool("walk", false);
+        }
         if (Input.GetKeyDown(KeyCode.Space) && !chargingLocked)
         {
             charging = true;
