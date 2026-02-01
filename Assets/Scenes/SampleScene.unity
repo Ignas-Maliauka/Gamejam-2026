@@ -9337,8 +9337,8 @@ PositionConstraint:
   m_Enabled: 0
   serializedVersion: 2
   m_Weight: 0.443
-  m_TranslationAtRest: {x: -0.35356, y: 7.89, z: -53.51}
-  m_TranslationOffset: {x: -0.35356, y: 6.79, z: -5.779999}
+  m_TranslationAtRest: {x: 0, y: 8, z: -55}
+  m_TranslationOffset: {x: 0, y: 6.9, z: -7.2700005}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1
@@ -9458,8 +9458,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113082398}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.3813122, y: 0, z: 0, w: -0.9244464}
-  m_LocalPosition: {x: -0.35356, y: 7.89, z: -53.51}
+  m_LocalRotation: {x: 0.31564897, y: 0, z: 0, w: 0.9488761}
+  m_LocalPosition: {x: 0, y: 4.12, z: -49.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
