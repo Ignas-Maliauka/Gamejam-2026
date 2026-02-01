@@ -19,10 +19,15 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     public GameObject scanArc;
+    public GameObject scanArcFlash;
     public float arcCooldownTime = 1f;
-
+    float time = 0f;
+    bool scanning = false;
+    private MaterialPropertyBlock mpb;
+    public Renderer rend;
     void Start()
     {
+        mpb = new MaterialPropertyBlock();
         cam = Camera.main;
         scanArc = transform.parent.GetChild(0).gameObject;
         scanMaterial = scanRadius.GetComponent<Renderer>().material;
@@ -40,16 +45,22 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Vector3 direction = hit.point - transform.position;
-                float angle = Mathf.Atan2(-direction.x, direction.z) * Mathf.Rad2Deg;
-                scanArc.transform.rotation = Quaternion.Euler(-90, -angle, 0);
+                float angle = Mathf.Atan2(direction.x, -direction.z) * Mathf.Rad2Deg;
+                scanArc.transform.rotation = Quaternion.Euler(0, -angle, 0);
             }
             scanSound.Play();
+            time = 0f;
+            scanning = true;
             scanArc.SetActive(true);
             Invoke("disableScanArc", 0.5f);
             arcCooldownTime = 1f;
         }
+        if (scanning)
+        {
 
-        if(RB.linearVelocity.magnitude >= 0.1f)
+            scanerMovingEffect();
+        }
+        if (RB.linearVelocity.magnitude >= 0.1f)
         {
             animator.SetBool("walk", true);
         }
@@ -90,6 +101,18 @@ public class PlayerController : MonoBehaviour
     {
         scanArc.SetActive(false);
 
+    }
+    private void scanerMovingEffect()
+    {
+        time += Time.deltaTime;
+        float t = Mathf.Clamp01(time / 0.5f);
+        float value = Mathf.Lerp(1f, 0f, time);
+        rend.GetPropertyBlock(mpb);
+        mpb.SetFloat("_Float", value);
+        rend.SetPropertyBlock(mpb);
+
+        if (time >= 0.5f)
+            scanning = false;
     }
     private void resetScanColor()
     {
